@@ -1,39 +1,33 @@
 {
-  "name": "starbot",
-  "description": "Starbot is GitHub's trending open-source page, reincarnated as a Slack bot",
+  "name": "Lounasbotti",
+  "description": "Lounasbotti kertoo missä syödä",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "start.js",
   "scripts": {
-    "start": "node ./src",
-    "notify": "node ./src/tasks/notify",
+    "start": "node start.js",
     "test": "standard"
   },
-  "author": {
-    "email": "creager@heroku.com",
-    "name": "Matthew Creager",
-    "url": "https://twitter.com/matt_creager"
-  },
-  "bugs": {
-    "url": "https://github.com/mattcreager"
-  },
   "dependencies": {
+    "babel-core": "^6.18.2",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-0": "^6.16.0",
     "body-parser": "^1.15.0",
     "botkit": "0.0.7",
     "dotenv": "^2.0.0",
     "express": "^4.13.4",
-    "express-http-proxy": "^0.6.0",
-    "github-trending": "^1.3.1",
     "lodash": "^4.6.1",
-    "slack": "^6.1.0"
+    "slack": "^6.1.0",
+    "winston": "^2.3.0"
   },
-  "keywords": [
-    "slack",
-    "slack-bot",
-    "bot",
-    "heroku"
-  ],
-  "license": "MIT",
   "engines": {
-    "node": "5.7.1"
+    "node": "6.9.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.9.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.6.0"
   }
 }

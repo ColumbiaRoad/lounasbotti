@@ -1,34 +1,25 @@
+import winston from 'winston';
 
-'use strict'
+const express = require('express');
+const bodyParser = require('body-parser');
+const config = require('./config');
 
-const express = require('express')
-const proxy = require('express-http-proxy')
-const bodyParser = require('body-parser')
-const _ = require('lodash')
-const config = require('./config')
+const bot = require('./bot');
 
-let bot = require('./bot')
+const app = express();
 
-let app = express()
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-if (config('PROXY_URI')) {
-  app.use(proxy(config('PROXY_URI'), {
-    forwardPath: (req, res) => { return require('url').parse(req.url).path }
-  }))
-}
-
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-
-app.get('/', (req, res) => { res.send('\n 👋 🌍 \n') })
+app.get('/', (req, res) => { res.send('\n 👋 🌍 \n'); });
 
 app.listen(config('PORT'), (err) => {
-  if (err) throw err
+  if (err) throw err;
 
-  console.log(`\n🚀  Starbot LIVES on PORT ${config('PORT')} 🚀`)
+  winston.log(`\n🚀  Lounasbotti LIVES on PORT ${config('PORT')} 🚀`);
 
   if (config('SLACK_TOKEN')) {
-    console.log(`🤖  beep boop: @starbot is real-time\n`)
-    bot.listen({ token: config('SLACK_TOKEN') })
+    winston.log(`🤖  beep boop: @starbot is real-time\n`);
+    bot.listen({ token: config('SLACK_TOKEN') });
   }
-})
+});
