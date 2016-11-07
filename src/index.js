@@ -1,10 +1,9 @@
 import winston from 'winston';
+import express from 'express';
+import bodyParser from 'body-parser';
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const config = require('./config');
-
-const bot = require('./bot');
+import bot from './bot';
+import config from './config';
 
 const app = express();
 

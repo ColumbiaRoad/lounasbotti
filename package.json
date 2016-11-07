@@ -2,9 +2,9 @@
   "name": "Lounasbotti",
   "description": "Lounasbotti kertoo missä syödä",
   "version": "1.0.0",
-  "main": "start.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node start.js",
+    "start": "node index.js",
     "test": "standard"
   },
   "dependencies": {

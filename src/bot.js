@@ -1,18 +1,19 @@
 import winston from 'winston';
-
-const slack = require('slack');
-const _ = require('lodash');
-const config = require('./config');
+import slack from 'slack';
+import _ from 'lodash';
+import config from './config';
 
 const bot = slack.rtm.client();
 
+let self;
+
 bot.started((payload) => {
-  this.self = payload.self;
+  self = payload.self;
 });
 
 bot.message((msg) => {
   if (!msg.user) return;
-  if (!_.includes(msg.text.match(/<@([A-Z0-9])+>/igm), `<@${this.self.id}>`)) return;
+  if (!_.includes(msg.text.match(/<@([A-Z0-9])+>/igm), `<@${self.id}>`)) return;
 
   slack.chat.postMessage({
     token: config('SLACK_TOKEN'),
