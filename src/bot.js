@@ -1,4 +1,3 @@
-import winston from 'winston';
 import slack from 'slack';
 import _ from 'lodash';
 import config from './config';
@@ -28,12 +27,27 @@ bot.message((msg) => {
     const restaurantName = msg.text.split(/lisää/i)[1].trim();
     Restaurant.query().insert({ name: restaurantName }).then((restaurant) => {
       message.text = `${restaurant.name} lisättiin`;
-      slack.chat.postMessage(message, (err, data) => {
+      slack.chat.postMessage(message, (err) => {
         if (err) throw err;
-
-        const txt = _.truncate(data.message.text);
-
-        winston.log(`🤖  beep boop: I responded with "${txt}"`);
+      });
+    });
+  } else if (msg.text.match(/mitä tänään/i)) {
+    Restaurant.query().then((restaurants) => {
+      const randomRestaurant = _.sample(restaurants);
+      message.text = `Tämän päivän lounaspaikka on: ${randomRestaurant.name}`;
+      slack.chat.postMessage(message, (err) => {
+        if (err) throw err;
+      });
+    });
+  } else if (msg.text.match(/listaa/i)) {
+    Restaurant.query().then((restaurants) => {
+      let restaurantText = 'Lisätyt ravintolat:';
+      _.each(restaurants, (restaurant) => {
+        restaurantText += `\n* ${restaurant.name}`;
+      });
+      message.text = restaurantText;
+      slack.chat.postMessage(message, (err) => {
+        if (err) throw err;
       });
     });
   }
