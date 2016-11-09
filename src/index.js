@@ -1,11 +1,16 @@
 import winston from 'winston';
 import express from 'express';
 import bodyParser from 'body-parser';
+import Knex from 'knex';
+import { Model } from 'objection';
 
 import bot from './bot';
 import config from './config';
+import knexConfig from '../knexfile';
 
 const app = express();
+const knex = Knex(knexConfig.development);
+Model.knex(knex);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
